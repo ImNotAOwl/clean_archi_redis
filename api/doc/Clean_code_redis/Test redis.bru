@@ -1,0 +1,24 @@
+meta {
+  name: Test redis
+  type: http
+  seq: 8
+}
+
+get {
+  url: http://localhost:3000/authors/test?key=test&value=42
+  body: json
+  auth: none
+}
+
+query {
+  key: test
+  value: 42
+}
+
+body:json {
+  {
+    "title": "update",
+    "description": "test description",
+    "content": "test content"
+  }
+}

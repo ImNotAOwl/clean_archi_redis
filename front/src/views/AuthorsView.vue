@@ -1,0 +1,96 @@
+<script setup lang="ts">
+import axios from 'axios'
+import { ref, onMounted, type Ref } from 'vue'
+import Card from 'primevue/card'
+import Button from 'primevue/button'
+
+const limit = ref(10)
+const offset = ref(0)
+const authors: Ref<author[]> = ref([])
+interface author {
+  id: number
+  first_name: string
+  last_name: string
+  email: string
+  birthdate: string
+  added: string
+}
+
+const onSubmit = async () => {
+  const res = await axios.get(
+    `http://localhost:3000/authors?limit=${limit.value}&offset=${offset.value}`
+  )
+  authors.value = res.data
+}
+
+onMounted(async () => {
+  const res = await axios.get(
+    `http://localhost:3000/authors?limit=${limit.value}&offset=${offset.value}`
+  )
+  authors.value = res.data
+})
+</script>
+
+<template>
+  <div class="authors">
+    <h1 class="text-xl">This is the authors page</h1>
+    <div class="flex space-x-3 my-2 items-center">
+      <div class="space-x-2">
+        <label for="limit">Limit</label>
+        <input
+          type="number"
+          name="limit"
+          id="limit"
+          v-model="limit"
+          class="border border-black rounded p-0.5"
+        />
+      </div>
+      <div class="space-x-2">
+        <label for="offset">Offset</label>
+        <input
+          type="number"
+          name="offset"
+          id="offset"
+          v-model="offset"
+          class="border border-black rounded p-0.5"
+        />
+      </div>
+
+      <Button label="Submit" raised outlined @click="onSubmit" />
+    </div>
+  </div>
+  <div v-if="authors.length !== 0">
+    <div class="flex flex-wrap gap-2 justify-between">
+      <Card
+        style="width: 25rem; overflow: hidden"
+        v-for="(author, idx) in authors"
+        :key="`author-${idx}`"
+      >
+        <template #header>
+          <img alt="user header" :src="`https://picsum.photos/id/${author.id}/400/300`" />
+        </template>
+        <template #title>{{ author.first_name }} - {{ author.last_name.toUpperCase() }}</template>
+        <template #subtitle>{{ author.email }}</template>
+        <template #content>
+          <p class="m-0">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur
+            error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis,
+            culpa ratione quam perferendis esse, cupiditate neque quas!
+          </p>
+        </template>
+        <template #footer>
+          <div class="flex justify-between mt-1">
+            <p>Birthday - {{ author.birthdate }}</p>
+            <p>Created At - {{ author.added }}</p>
+          </div>
+        </template>
+      </Card>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.p-card {
+  margin: 1em;
+}
+</style>

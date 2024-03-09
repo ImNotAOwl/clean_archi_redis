@@ -1,0 +1,19 @@
+meta {
+  name: Update Post
+  type: http
+  seq: 7
+}
+
+put {
+  url: http://localhost:3000/posts/101
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "update",
+    "description": "test description",
+    "content": "test content"
+  }
+}

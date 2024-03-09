@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Clean_code_redis",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

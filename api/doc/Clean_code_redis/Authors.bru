@@ -1,0 +1,15 @@
+meta {
+  name: Authors
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3000/authors?limit=2
+  body: none
+  auth: none
+}
+
+query {
+  limit: 2
+}

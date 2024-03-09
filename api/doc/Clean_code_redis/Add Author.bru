@@ -1,0 +1,21 @@
+meta {
+  name: Add Author
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/authors
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "first_name": "Matthieu",
+    "last_name": "Siegel",
+    "email": "toto@email.com",
+    "birthdate": "1978-12-2",
+    "added": "2000-07-05 22:02:53"
+  }
+}
